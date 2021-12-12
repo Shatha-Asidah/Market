@@ -21,9 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/categories','App\Http\Controllers\CategoryController@index');
-Route::get('/category/{id}','App\Http\Controllers\CategoryController@show');
+Route::get('/categories/{id}','App\Http\Controllers\CategoryController@show');
 
 
 
 Route::get('/products','App\Http\Controllers\ProductController@index');
-Route::get('/product/{id}','App\Http\Controllers\ProductController@show');
+Route::get('/products/{id}','App\Http\Controllers\ProductController@show');

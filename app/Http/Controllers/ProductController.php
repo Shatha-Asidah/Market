@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -29,7 +31,7 @@ class ProductController extends Controller
         if($product) {
             return $this->apiResponse(new ProductResource($product), 'ok', 200);
         }
-        return $this->apiResponse(null, 'This Product not found', 401);
+        return $this->apiResponse(null, 'This Product not found', 404);
     }
 
     /**

@@ -11,11 +11,11 @@ class Product extends Model
     protected $table = "products";
 
     protected $fillable = [
-       'id','name','img_url','date','description','quantity','price','category_id' ,];
+      'name','img_url','date','description','quantity','price','category_id' ,];
 
 
     protected $primaryKey = "id";
-    
+
     public $timestamps=true ;
 
 }

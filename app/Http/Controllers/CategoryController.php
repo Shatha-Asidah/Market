@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,9 +14,10 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories  = Category::get();
+        $categories  = CategoryResource::collection(Category::get());
 
         return $this->apiResponse($categories,'ok',200);
+
 
     }
 
@@ -26,11 +29,12 @@ class CategoryController extends Controller
 
      public function show($id)
      {
-        $category = Category::find($id);
+        $category =Category::find($id);
         if($category) {
-            return $this->apiResponse($category, 'ok', 200);
+            return $this->apiResponse(new CategoryResource($category), 'ok', 200);
         }
-         return $this->apiResponse(null, 'This Category not found', 401);
+         return $this->apiResponse(null, 'This Category not found', 404);
+
      }
 
 //     /**
