@@ -91,8 +91,17 @@ class ProductController extends Controller
 
 
 
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+        $product =  Product::find($id);
+        if(!$product){
+            return $this->apiResponse(null, 'This Product not found', 404);
+        }
+        $product->delete($id);
+        if($product) {
+            return $this->apiResponse(null, 'This Product deleted', 200);
+        }
+
 
     }
 }
