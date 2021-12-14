@@ -27,3 +27,6 @@ Route::get('/categories/{id}','App\Http\Controllers\CategoryController@show');
 
 Route::get('/products','App\Http\Controllers\ProductController@index');
 Route::get('/products/{id}','App\Http\Controllers\ProductController@show');
+Route::post('/products','App\Http\Controllers\ProductController@store');
+Route::post('/products/{id}','App\Http\Controllers\ProductController@update');
+
