@@ -31,9 +31,9 @@ class CategoryController extends Controller
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);
         }
-        $product =Category::create($request->all());
-        if($product) {
-            return $this->apiResponse(new CategoryResource($product), 'This Category save', 201);
+        $category =Category::create($request->all());
+        if($category) {
+            return $this->apiResponse(new CategoryResource($category), 'This Category save', 201);
         }
         return $this->apiResponse(null, 'This Category not save', 400);
     }
