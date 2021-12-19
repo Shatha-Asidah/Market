@@ -25,13 +25,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all() , [
-            "name"=>"required",
-            "img_url"=>"required",
-            "date"=>"required",
-            "description"=>"required",
-            "quantity"=>"required",
-            "price"=>"required",
-            "category_id"=>"required",
+            'name'=>'required',
+            'img_url'=>'required',
+            'date'=>'required',
+            'description'=>'required',
+            'quantity'=>'required',
+            'price'=>'required',
+            'category_id'=>'required',
         ]);
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);
@@ -62,13 +62,13 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all() , [
-            "name"=>"required",
-            "img_url"=>"required",
-            "date"=>"required",
-            "description"=>"required",
-            "quantity"=>"required",
-            "price"=>"required",
-            "category_id"=>"required",
+            'name'=>'required',
+            'img_url'=>'required',
+            'date'=>'required',
+            'description'=>'required',
+            'quantity'=>'required',
+            'price'=>'required',
+            'category_id'=>'required',
 
         ]);
         if ($validator->fails()){
