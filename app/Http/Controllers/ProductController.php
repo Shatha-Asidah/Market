@@ -7,7 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Auth;
 class ProductController extends Controller
 {
 
@@ -15,8 +15,9 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products  =ProductResource::collection(Product::get());
-        return $this->apiResponse($products,'ok',200);
+       // $products  =ProductResource::collection(Product::get());
+        $product=Auth::Product();
+        return $this->apiResponse($product,'ok',200);
 
     }
 

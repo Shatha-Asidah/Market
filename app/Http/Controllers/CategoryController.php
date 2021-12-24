@@ -65,12 +65,12 @@ class CategoryController extends Controller
         }
 
         $category = Category::find($id);
-        if(!  $category){
+        if(!$category){
             return $this->apiResponse(null, 'This Category not found', 404);
         }
 
         $category->update($request->all());
-        if(  $category) {
+        if($category) {
             return $this->apiResponse(new CategoryResource(  $category), 'This Category update', 201);
         }
 

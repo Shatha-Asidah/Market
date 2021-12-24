@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -70,9 +71,42 @@ class AuthController extends Controller
         $data["token_type"]= 'Bearer';
         $data["access_token"]=$tokenResult->accessToken;
 
-        return $this->apiResponse($data,'user register successfully' , 200);
+        return $this->apiResponse($data,'user login successfully' , 200);
 
     }
+
+//    public function createAccount(Request $request){
+//        $validator = Validator::make($request->all(), [
+//            'name'=>['required','string','max:255'],
+//            'age'=>['required','numeric'],
+//            'email'=>['required','string','email','max:255',Rule::unique()],
+//            'password'=>['required','string','min:0'],
+//        ]);
+//
+//
+//        if ($validator->fails()){
+//            return $validator ->errors()->all();
+//        }
+//
+//        $request['password'] = Hash::make($request['password']);
+//
+//        $user = User::query()->create([
+//            'name' => $request->name,
+//            'age' => $request->age,
+//            'email' => $request->email,
+//            'password' => $request->password,
+//        ]);
+//
+//        //add token to user
+//        $tokenResult = $user->createToken('Personal Access Token');
+//        $data["user"] = $user;
+//        $data["token_type"] = 'Bearer';
+//        $data["access_token"] = $tokenResult->accessToken;
+//
+//        return $this->apiResponse($data,'user create successfully' , 200);
+//
+//
+//    }
 }
-//fvm;ldslv;sdep
+
 
