@@ -46,7 +46,7 @@ Route::get('/categories','App\Http\Controllers\CategoryController@index');
     Route::get('/categories/{id}','App\Http\Controllers\CategoryController@show');
     Route::post('/categories','App\Http\Controllers\CategoryController@store');
     Route::post('/categories/{id}','App\Http\Controllers\CategoryController@update');
-        Route::post('/categories/id','App\Http\Controllers\CategoryController@destroy');
+        Route::post('/categories/{id}','App\Http\Controllers\CategoryController@destroy');
 
 
 //});

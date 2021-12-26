@@ -23,4 +23,9 @@ class Product extends Model
         return $this->belongsTo(Category::class,'category_id');
     }
 
+    public function discounts()
+    {
+        return $this->hasMany(Discount::class,'product_id')->orderBy('date');
+    }
+
 }
