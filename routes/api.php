@@ -34,8 +34,8 @@ Route::get('/products','App\Http\Controllers\ProductController@index');
 Route::get('/categories','App\Http\Controllers\CategoryController@index');
 
 
-//Route::middleware(['auth:api'])->group(function ()
-//{
+Route::middleware(['auth:api'])->group(function ()
+{
 
     Route::get('/products/{id}','App\Http\Controllers\ProductController@show');
     Route::post('/products','App\Http\Controllers\ProductController@store');
@@ -49,7 +49,7 @@ Route::get('/categories','App\Http\Controllers\CategoryController@index');
         Route::post('/categories/{id}','App\Http\Controllers\CategoryController@destroy');
 
 
-//});
+});
 
 
 

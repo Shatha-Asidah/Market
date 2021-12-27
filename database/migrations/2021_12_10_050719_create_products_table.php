@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('quantity')->default(1);
             $table->double('price')->default(0);
             $table->bigInteger('category_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
