@@ -75,6 +75,11 @@ class AuthController extends Controller
 
     }
 
+      public function  logout(Request $request){
+        auth()->user()->tokens()->dele
+      }
+
+
 //    public function createAccount(Request $request){
 //        $validator = Validator::make($request->all(), [
 //            'name'=>['required','string','max:255'],

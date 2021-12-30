@@ -88,29 +88,26 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product =  Product::find($id)->increment('views');
-
-
+        $product =  Product::find($id);
+        $product->increment('views');
         $discounts = $product->discounts()->get();
-
         $maxDiscount = null;
         foreach ($discounts as $discount){
             if (Carbon::parse($discount['date']) <= now()){
-                $maxDiscount = $discount;
-            }
+                $maxDiscount = $discount;}
         }
-
         if (!is_null($maxDiscount)){
             $discount_value =
                 ($product->price*$maxDiscount['discount_percentage'])/100;
-            $product['current_price'] = $product->price - $discount_value;
+            $new_price = $product->price - $discount_value;
+        }else{
+            $new_price = $product->price;
         }
+        $product->setAttribute('current_price', $new_price);
         if($product) {
             return $this->apiResponse(new ProductResource($product), 'ok', 200);
         }
         return $this->apiResponse(null, 'This Product not found', 404);
-
-
     }
 
 
@@ -122,7 +119,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'img_url' => 'required',
-            'date' => 'required',
+          ////  'date' => 'required',
             'description' => 'required',
             'quantity' => 'required',
             'price' => 'required',
@@ -132,22 +129,17 @@ class ProductController extends Controller
         if ($validator->fails()) {
             return $this->apiResponse(null, $validator->errors(), 400);
         }
-
         $product = Product::find($id);
-
-
         if($product->user_id !=Auth::id()){
             return $this->apiResponse('you do not have rights', $validator->errors(), 400);
         }
         if (!$product) {
             return $this->apiResponse(null, 'This Product not found', 404);
         }
-
         $product->update($request->all());
         if ($product) {
             return $this->apiResponse(new ProductResource($product), 'This Product update', 201);
         }
-
     }
 
 
@@ -155,6 +147,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+
         $product =  Product::find($id);
         if($product->user_id !=Auth::id()){
             return $this->apiResponse(null, 'you do not have rights', 400);
@@ -174,13 +167,14 @@ class ProductController extends Controller
 
     public function search($name)
     {
+
       $product=  Product::where("name","like","%".$name."%");
         if (!$product) {
             return $this->apiResponse(null, 'This Product not found', 404);
         }
 
         if ($product) {
-            return $this->apiResponse(new ProductResource($product), 'This Product you need', 201);
+            return $this->apiResponse(ProductResource::collection($product), 'This Product you need', 201);
         }
 
 
