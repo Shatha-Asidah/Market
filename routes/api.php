@@ -31,6 +31,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 
 Route::get('/products','App\Http\Controllers\ProductController@index');
+Route::get('/products/{name}','App\Http\Controllers\ProductController@search');
+
 Route::get('/categories','App\Http\Controllers\CategoryController@index');
 
 
