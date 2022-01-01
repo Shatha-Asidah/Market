@@ -22,7 +22,7 @@ class AuthController extends Controller
             'email'=>['required','string','email','max:255'],
             'password'=>['required','string','min:8'],
             'whatsapp_url'=>'required',
-            'facebook_url'=>'required',
+           // 'facebook_url'=>'required',
 
         ]);
         if ($validator->fails()){
@@ -51,18 +51,14 @@ class AuthController extends Controller
         $validator = Validator::make($request->all() , [
             'email'=>['required','string','email','max:255'],
             'password'=>['required','string','min:8'],
-
-
         ]);
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);
         }
-
         $credentials = request(['email','password']);
         if(!Auth::attempt($credentials)){
             throw new AuthenticationException();
         }
-
         $user= $request->user();
 
         //add token to user
@@ -76,42 +72,12 @@ class AuthController extends Controller
     }
 
       public function  logout(Request $request){
-        auth()->user()->tokens()->dele
+        $token=$request->user()->token();
+        $token->revoke();
+        return response()->json([
+            'message'=> 'Successfully logged out'
+        ]);
       }
-
-
-//    public function createAccount(Request $request){
-//        $validator = Validator::make($request->all(), [
-//            'name'=>['required','string','max:255'],
-//            'age'=>['required','numeric'],
-//            'email'=>['required','string','email','max:255',Rule::unique()],
-//            'password'=>['required','string','min:0'],
-//        ]);
-//
-//
-//        if ($validator->fails()){
-//            return $validator ->errors()->all();
-//        }
-//
-//        $request['password'] = Hash::make($request['password']);
-//
-//        $user = User::query()->create([
-//            'name' => $request->name,
-//            'age' => $request->age,
-//            'email' => $request->email,
-//            'password' => $request->password,
-//        ]);
-//
-//        //add token to user
-//        $tokenResult = $user->createToken('Personal Access Token');
-//        $data["user"] = $user;
-//        $data["token_type"] = 'Bearer';
-//        $data["access_token"] = $tokenResult->accessToken;
-//
-//        return $this->apiResponse($data,'user create successfully' , 200);
-//
-//
-//    }
 }
 
 

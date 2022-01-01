@@ -33,5 +33,14 @@ class Product extends Model
     {
         return $this->hasMany(Discount::class,'product_id')->orderBy('date');
     }
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Comment::class,'product_id');}
 
+    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Like::class,'product_id');
+    }
+
+  //  public $withCount = ['comments' , 'likes'];
 }
