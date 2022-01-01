@@ -30,7 +30,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // auth routes
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // without middleware
@@ -44,6 +43,8 @@ Route::get('/categories','App\Http\Controllers\CategoryController@index');
 Route::middleware(['auth:api'])->group(function ()
 {
 
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
  // categories routes
     Route::get('/categories/{id}','App\Http\Controllers\CategoryController@show');
     Route::post('/categories','App\Http\Controllers\CategoryController@store');

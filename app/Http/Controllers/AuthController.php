@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Laravel\Passport\HasApiTokens;
+use Laravel\Passport\RefreshToken;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
     use  ApiResponseTrait;
+    use HasApiTokens;
 
     public function register(Request $request)
     {
@@ -72,6 +75,7 @@ class AuthController extends Controller
     }
 
       public function  logout(Request $request){
+      //  $accessToken=auth()->user()->token();
         $token=$request->user()->token();
         $token->revoke();
         return response()->json([

@@ -50,13 +50,17 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'user_id' => auth()->id(),
             'views'=>$request->views,
-         //'list_discounts'=>(array)$request->list_discounts,
+         //  'list_discounts[].date'=>$request->list_discounts.date,
+
+       //  'discounts'=>(array)$request->discounts,
         ]);
-        foreach ((array)$request->list_discounts as $discount){
+        foreach ($request->list_discounts as $discount){
+
             $product->discounts()->create([
                 'date' => $discount['date'],
                 'discount_percentage' => $discount['discount_percentage'],
             ]);
+
         }
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);

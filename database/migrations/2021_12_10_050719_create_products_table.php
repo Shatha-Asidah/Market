@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->double('price')->default(0);
             $table->bigInteger('category_id');
             $table->integer('user_id');
-            $table->integer('views')->nullable();
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }
