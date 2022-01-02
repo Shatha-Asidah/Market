@@ -42,5 +42,5 @@ class Product extends Model
         return $this->hasMany(Like::class,'product_id');
     }
 
-  //  public $withCount = ['comments' , 'likes'];
+      public $withCount = ['comments' , 'likes'];
 }

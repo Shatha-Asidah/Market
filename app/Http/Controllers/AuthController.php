@@ -18,6 +18,8 @@ class AuthController extends Controller
     use  ApiResponseTrait;
     use HasApiTokens;
 
+
+    // register method
     public function register(Request $request)
     {
         $validator = Validator::make($request->all() , [
@@ -25,7 +27,6 @@ class AuthController extends Controller
             'email'=>['required','string','email','max:255'],
             'password'=>['required','string','min:8'],
             'whatsapp_url'=>'required',
-           // 'facebook_url'=>'required',
 
         ]);
         if ($validator->fails()){
@@ -42,13 +43,12 @@ class AuthController extends Controller
         $data["access_token"]=$tokenResult->accessToken;
 
         return $this->apiResponse($data,'user register successfully' , 200);
-
     }
 
 
-    /**
-     * @throws AuthenticationException
-     */
+
+
+    // login method
     public function login(Request $request)
     {
         $validator = Validator::make($request->all() , [
@@ -74,8 +74,12 @@ class AuthController extends Controller
 
     }
 
+
+
+
+
+    // logout method
       public function  logout(Request $request){
-      //  $accessToken=auth()->user()->token();
         $token=$request->user()->token();
         $token->revoke();
         return response()->json([

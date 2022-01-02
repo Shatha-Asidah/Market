@@ -49,13 +49,10 @@ class ProductController extends Controller
             'price' => $request->price,
             'category_id' => $request->category_id,
             'user_id' => auth()->id(),
-            'views'=>$request->views,
-         //  'list_discounts[].date'=>$request->list_discounts.date,
+           // 'views'=>0,
 
-       //  'discounts'=>(array)$request->discounts,
         ]);
         foreach ($request->list_discounts as $discount){
-
             $product->discounts()->create([
                 'date' => $discount['date'],
                 'discount_percentage' => $discount['discount_percentage'],
@@ -121,11 +118,12 @@ class ProductController extends Controller
             return $this->apiResponse(null, $validator->errors(), 400);
         }
         $product = Product::find($id);
-        if($product->user_id !=Auth::id()){
-            return $this->apiResponse(null, 'you do not have rights', 400);
-        }
+
         if (!$product) {
             return $this->apiResponse(null, 'This Product not found', 404);
+        }
+        if($product->user_id !=Auth::id()){
+            return $this->apiResponse(null, 'you do not have rights', 400);
         }
         $product->update($request->all());
         if ($product) {
@@ -139,29 +137,30 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product =  Product::find($id);
+
+        if(!$product){
+            return $this->apiResponse(null, 'This Product not found', 404);
+        }
         if($product->user_id !=Auth::id()){
             return $this->apiResponse(null, 'you do not have rights', 400);
 
         }
-        if(!$product){
-            return $this->apiResponse(null, 'This Product not found', 404);
-        }
         $product->delete($id);
-        if($product) {
             return $this->apiResponse(null, 'This Product deleted', 200);
-        }
+
     }
 
 
     public function search($name)
     {
+
       $product=  Product::where("name","like","%".$name."%")->get();
         if (!$product) {
           //  dd($name);
            return $this->apiResponse(null, 'This Product not found', 404);
         }
-        if ($product) {
+
             return $this->apiResponse(ProductResource::collection($product), 'This Product you need', 201);
-        }
+
     }
 }

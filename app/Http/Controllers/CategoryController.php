@@ -15,6 +15,8 @@ class CategoryController extends Controller
 
     use  ApiResponseTrait;
 
+
+    // show all categories
     public function index()
     {
         $categories  =CategoryResource::collection(Category::get());
@@ -23,7 +25,7 @@ class CategoryController extends Controller
     }
 
 
-
+    //add category
     public function store(Request $request)
     {
         $validator = Validator::make($request->all() , [
@@ -41,7 +43,7 @@ class CategoryController extends Controller
 
 
 
-
+ // show one category
     public function show($id)
     {
         $category =  Category::find($id);
@@ -54,6 +56,7 @@ class CategoryController extends Controller
 
 
 
+   //update one category
 
     public function update(Request $request, $id)
     {

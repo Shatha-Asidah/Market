@@ -34,8 +34,10 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 // without middleware
 Route::get('/products','App\Http\Controllers\ProductController@index');
+Route::get('/products/{id}','App\Http\Controllers\ProductController@show');
 Route::get('/products/search/{name}','App\Http\Controllers\ProductController@search');
 Route::get('/categories','App\Http\Controllers\CategoryController@index');
+Route::get('/categories/{id}','App\Http\Controllers\CategoryController@show');
 
 
 
@@ -46,7 +48,7 @@ Route::middleware(['auth:api'])->group(function ()
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
  // categories routes
-    Route::get('/categories/{id}','App\Http\Controllers\CategoryController@show');
+ //   Route::get('/categories/{id}','App\Http\Controllers\CategoryController@show');
     Route::post('/categories','App\Http\Controllers\CategoryController@store');
     Route::post('/categories/{id}','App\Http\Controllers\CategoryController@update');
     Route::post('/categories/d/{id}','App\Http\Controllers\CategoryController@destroy');
@@ -57,9 +59,9 @@ Route::middleware(['auth:api'])->group(function ()
       Route::prefix('products')->group(function (){
 
         Route::post('/', [ProductController::class, 'store']);
-        Route::get('/{id}', [ProductController::class, 'show']);
+       // Route::get('/{id}', [ProductController::class, 'show']);
         Route::post('/{id}', [ProductController::class, 'update']);
-        Route::post('/{id}', [ProductController::class, 'destroy']);
+        Route::post('/d/{id}', [ProductController::class, 'destroy']);
 
        //  comments routes
         Route::prefix("/{id}/comments")->group(function (){
