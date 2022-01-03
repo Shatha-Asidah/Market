@@ -28,6 +28,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $file_name=$this->saveImage($request->img_url,'images/product');
         $input=$request->all();
         $validator = Validator::make($input , [
             'name'=>'required',
@@ -38,7 +39,7 @@ class ProductController extends Controller
             'price'=>'required',
             'category_id'=>'required',
         ]);
-        $file_name=$this->saveImage($request->img_url,'images/product');
+
 
         $product = Product::query()->create([
             'name' => $request->name,
@@ -151,16 +152,26 @@ class ProductController extends Controller
     }
 
 
+
+// search method
     public function search($name)
     {
-
       $product=  Product::where("name","like","%".$name."%")->get();
         if (!$product) {
-          //  dd($name);
-           return $this->apiResponse(null, 'This Product not found', 404);
+            return $this->apiResponse(null, 'This Product not found', 404);
         }
+        return $this->apiResponse(ProductResource::collection($product), 'This Product you need', 201);
 
-            return $this->apiResponse(ProductResource::collection($product), 'This Product you need', 201);
+    }
 
+
+
+
+
+    //sorting by Expiraton date
+    public function sorting(){
+        $products =Product::all()->sortBy('date');
+        return $this-> apiResponse($products, 'sorting by Expiraton date done', 201);
+      //  return response()->json($products, 'sorting by Expiraton date done');
     }
 }

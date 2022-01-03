@@ -34,6 +34,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 // without middleware
 Route::get('/products','App\Http\Controllers\ProductController@index');
+Route::get('/products/sort','App\Http\Controllers\ProductController@sorting');
 Route::get('/products/{id}','App\Http\Controllers\ProductController@show');
 Route::get('/products/search/{name}','App\Http\Controllers\ProductController@search');
 Route::get('/categories','App\Http\Controllers\CategoryController@index');
