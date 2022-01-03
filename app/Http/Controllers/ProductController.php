@@ -28,7 +28,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $file_name=$this->saveImage($request->img_url,'images/product');
+
         $input=$request->all();
         $validator = Validator::make($input , [
             'name'=>'required',
@@ -39,7 +39,7 @@ class ProductController extends Controller
             'price'=>'required',
             'category_id'=>'required',
         ]);
-
+        $file_name=$this->saveImage($request->img_url,'images/product');
 
         $product = Product::query()->create([
             'name' => $request->name,
