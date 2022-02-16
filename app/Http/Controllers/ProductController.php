@@ -171,7 +171,7 @@ class ProductController extends Controller
     //sorting by Expiraton date
     public function sorting(){
         $products =Product::all()->sortBy('date');
-        return $this-> apiResponse($products, 'sorting by Expiraton date done', 201);
+        return $this-> apiResponse($products, 'sorting by Expiration date done', 201);
       //  return response()->json($products, 'sorting by Expiraton date done');
     }
 }
