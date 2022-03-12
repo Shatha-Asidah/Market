@@ -61,8 +61,8 @@ Route::middleware(['auth:api'])->group(function ()
 
         Route::post('/', [ProductController::class, 'store']);
        // Route::get('/{id}', [ProductController::class, 'show']);
-        Route::post('/{id}', [ProductController::class, 'update']);
-        Route::post('/d/{id}', [ProductController::class, 'destroy']);
+        Route::post('/update/{id}', [ProductController::class, 'update']);
+        Route::post('/{id}', [ProductController::class, 'destroy']);
 
        //  comments routes
         Route::prefix("/{id}/comments")->group(function (){

@@ -24,13 +24,6 @@ class CommentController extends Controller
     }
 
 
-
-
-
-
-
-
-
     //add comment
     public function store(Request $request, $id)
     {
@@ -75,7 +68,8 @@ class CommentController extends Controller
             'product_id' => $id,
             'user_id' => Auth::id(),
         ]);
-        return response()->json($comment, 'updated successfully');
+       // return response()->json($comment, 'updated successfully');
+        return $this->apiResponse($comment, 'updated successfully', 201);
     }
 
 
